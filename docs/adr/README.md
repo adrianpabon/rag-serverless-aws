@@ -9,3 +9,4 @@ Every significant architecture or technology decision in this project is recorde
 |---|---|---|
 | [0001](0001-use-s3-vectors-as-vector-store.md) | Use Amazon S3 Vectors as the vector store | Accepted |
 | [0002](0002-vector-index-configuration.md) | Vector index configuration: 1024 dimensions, cosine, us-east-1 | Accepted |
+| [0003](0003-semantic-chunking.md) | Use semantic chunking in the Knowledge Base | Accepted |
