@@ -1,0 +1,33 @@
+# Claude Code configuration (never committed)
+.claude
+CLAUDE.md
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+crash.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+build/
+dist/
+*.zip
+
+# Secrets and local environment
+.env
+*.pem
+credentials*
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
