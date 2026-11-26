@@ -75,11 +75,14 @@ rag-serverless-aws/
 
 ```bash
 cd web
-python -m http.server 3000
+cp .env.example .env   # fill in the Cognito client ID and the API URL
+python serve.py
 # open http://localhost:3000
 ```
 
-The page must be served from `http://localhost:3000`: it's the origin allowed by CORS in API Gateway, the Lambdas (`ALLOWED_ORIGIN`) and the S3 bucket. The values in `CONFIG` (region, Cognito client ID, API URL) are public identifiers, not secrets.
+- Environment values live in `web/.env`, which is **never committed** (`.gitignore`). `serve.py` reads it and exposes the values to the page as `/config.js`.
+- `serve.py` uses an allowlist: it only serves `index.html` and `config.js`, so `.env` can never be downloaded.
+- The page must be served from `http://localhost:3000`: it's the origin allowed by CORS in API Gateway, the Lambdas (`ALLOWED_ORIGIN`) and the S3 bucket.
 
 ## Roadmap
 
