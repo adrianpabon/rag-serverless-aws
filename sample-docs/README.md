@@ -10,6 +10,7 @@ Upload them to `s3://<docs-bucket>/uploads/`. Never add copyrighted or confident
 | `02-returns-and-warranty-policy.md` | Returns, refunds, warranty, repairs |
 | `03-incident-response-runbook.md` | Severity levels, on-call, postmortems |
 | `04-product-guide-alpine-tents.md` | Tent models, specs, care, FAQ |
+| `05-travel-expense-policy.md` | Travel booking, per diem, expense reports. Used to test uploads through `POST /upload-url`. |
 
 ## Test questions
 
@@ -26,4 +27,5 @@ Use them to check retrieval (`Retrieve`) and answers (`query_handler`).
 | 7 | Which tent should I use on a glacier? | Nevado 2 or Cocuy 3 (4-season) | 04 |
 | 8 | What's the lightest tent and how much does it weigh? | Páramo 1, 1.1 kg | 04 |
 | 9 | Does the Cocuy 3 have a lifetime warranty? Why? | Yes, on seams, zippers and frames, because it's a Lumen Trail Pro product | 02 + 04 (multi-document) |
+| 11 | What's the meal allowance per day for a trip to Europe? | USD 85 (hotel max USD 220) | 05 |
 | 10 | What's the CEO's favorite color? | Not in the documents: the assistant should say it doesn't know | none (hallucination check) |
