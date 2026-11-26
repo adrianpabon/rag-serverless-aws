@@ -90,4 +90,8 @@ The page must be served from `http://localhost:3000`: it's the origin allowed by
 
 ## What I learned
 
-_To be written by the author._
+- **S3 Vectors index settings are permanent.** The dimension, distance metric and non-filterable metadata keys (`AMAZON_BEDROCK_TEXT`, `AMAZON_BEDROCK_METADATA`) can't be changed after the index is created, and the Knowledge Base needs those keys to work.
+- **Serverless lets me focus on the code.** I can deploy and test without managing servers, and I only pay when something runs.
+- **New AWS accounts start with Bedrock quotas at 0.** I learned to open AWS Support cases to request quota increases, and AWS Support responded quickly.
+- **Retrieval quality needs more than vector search.** A score threshold filters out noise, and a re-ranking model can reorder the chunks by relevance.
+- **Deploy the code before adding the trigger.** I added the SQS trigger before deploying my Lambda code, so the default template consumed the messages and the events were lost. In Terraform, the event source mapping must depend on the function code.
