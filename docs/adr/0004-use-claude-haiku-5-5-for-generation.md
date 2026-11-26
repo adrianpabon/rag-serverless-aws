@@ -1,6 +1,6 @@
 # 0004. Use Claude Haiku 5.5 as the generation model
 
-- **Status:** Accepted
+- **Status:** Superseded by [0005](0005-use-claude-haiku-4-5-for-generation.md)
 - **Date:** 2026-11-25
 
 ## Context
