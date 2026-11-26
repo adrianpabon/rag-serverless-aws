@@ -23,6 +23,7 @@ MIN_SCORE = float(os.environ.get("MIN_SCORE", "0.6"))
 NUMBER_OF_RESULTS = int(os.environ.get("NUMBER_OF_RESULTS", "5"))
 MAX_TOKENS = int(os.environ.get("MAX_TOKENS", "512"))
 MAX_QUESTION_LENGTH = 1000
+ALLOWED_ORIGIN = os.environ.get("ALLOWED_ORIGIN", "http://localhost:3000")
 
 NO_ANSWER = "I don't have information about that in the documents."
 
@@ -42,7 +43,7 @@ def _response(status: int, body: dict) -> dict:
     """Build an API Gateway Lambda proxy response."""
     return {
         "statusCode": status,
-        "headers": {"Content-Type": "application/json"},
+        "headers": {"Content-Type": "application/json", "Access-Control-Allow-Origin": ALLOWED_ORIGIN},
         "body": json.dumps(body, ensure_ascii=False),
     }
 

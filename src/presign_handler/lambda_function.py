@@ -23,6 +23,7 @@ UPLOAD_PREFIX = "uploads/"
 MAX_UPLOAD_BYTES = int(os.environ.get("MAX_UPLOAD_BYTES", str(5 * 1024 * 1024)))
 URL_EXPIRES_SECONDS = int(os.environ.get("URL_EXPIRES_SECONDS", "300"))
 MAX_NAME_LENGTH = 100
+ALLOWED_ORIGIN = os.environ.get("ALLOWED_ORIGIN", "http://localhost:3000")
 
 # Formats the Knowledge Base can parse, with the Content-Type S3 will require.
 ALLOWED_TYPES = {
@@ -41,7 +42,7 @@ def _response(status: int, body: dict) -> dict:
     """Build an API Gateway Lambda proxy response."""
     return {
         "statusCode": status,
-        "headers": {"Content-Type": "application/json"},
+        "headers": {"Content-Type": "application/json", "Access-Control-Allow-Origin": ALLOWED_ORIGIN},
         "body": json.dumps(body, ensure_ascii=False),
     }
 
