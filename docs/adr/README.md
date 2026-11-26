@@ -13,3 +13,4 @@ Every significant architecture or technology decision in this project is recorde
 | [0004](0004-use-claude-haiku-5-5-for-generation.md) | Use Claude Haiku 5.5 as the generation model | Superseded by [0005](0005-use-claude-haiku-4-5-for-generation.md) |
 | [0005](0005-use-claude-haiku-4-5-for-generation.md) | Use Claude Haiku 4.5 as the generation model | Accepted |
 | [0006](0006-ingestion-trigger-sqs-batching-lambda-retry.md) | Ingestion trigger: SQS batching, Lambda and retry on conflict | Accepted |
+| [0007](0007-cognito-admin-only-users.md) | Cognito user pool with admin-only users | Accepted |
