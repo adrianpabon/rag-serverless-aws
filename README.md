@@ -63,14 +63,27 @@ rag-serverless-aws/
 │   ├── presign_handler/
 │   ├── ingestion_handler/
 │   └── query_handler/
+├── web/                  # simple web client (sign in, ask, upload)
 ├── docs/                 # architecture diagram (as code), costs, ADRs
-├── sample-docs/          # test documents
+├── sample-docs/          # fictional test documents and test questions
 └── README.md
 ```
 
+## Run the web client
+
+`web/index.html` is a single static page (vanilla JavaScript, no build step). It signs in with Cognito, asks questions through `POST /query` and uploads documents through `POST /upload-url` and a pre-signed S3 POST.
+
+```bash
+cd web
+python -m http.server 3000
+# open http://localhost:3000
+```
+
+The page must be served from `http://localhost:3000`: it's the origin allowed by CORS in API Gateway, the Lambdas (`ALLOWED_ORIGIN`) and the S3 bucket. The values in `CONFIG` (region, Cognito client ID, API URL) are public identifiers, not secrets.
+
 ## Roadmap
 
-- [ ] Phase 1 — Build each component manually in the AWS Console
+- [x] Phase 1 — Build each component manually in the AWS Console
 - [ ] Phase 2 — Codify the stack in Terraform
 - [ ] Phase 3 — Hardening: observability, dead-letter queue, throttling, WAF
 - [ ] Phase 4 — Cost analysis: S3 Vectors vs OpenSearch Serverless
