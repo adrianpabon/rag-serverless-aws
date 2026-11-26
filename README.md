@@ -28,7 +28,7 @@ The diagram is drawn as code with the official AWS icons: see [`docs/diagrams/ar
 4. The client uploads the document **directly to S3**. The file never goes through Lambda or API Gateway.
 
 **Ingestion (asynchronous)**
-1. S3 sends an *Object Created* event to Amazon EventBridge. An EventBridge rule filters the event (bucket and prefix) and sends it to an SQS queue.
+1. S3 sends an *Object Created* or *Object Deleted* event to Amazon EventBridge. An EventBridge rule filters the event (bucket and prefix) and sends it to an SQS queue.
 2. `ingestion_handler` consumes the events in batches and calls `StartIngestionJob`. SQS solves a real constraint: a Knowledge Base runs **only one ingestion job at a time** per data source, so many uploads must collapse into one sync.
 3. The Knowledge Base reads the documents, splits them into chunks, computes embeddings with Amazon Titan Text Embeddings v2 and stores the vectors in S3 Vectors.
 
@@ -44,7 +44,7 @@ The diagram is drawn as code with the official AWS icons: see [`docs/diagrams/ar
 | `presign_handler` | Generate pre-signed upload URLs | `s3:PutObject` on `documents-bucket/uploads/*` |
 | `ingestion_handler` | Trigger Knowledge Base syncs | `sqs:ReceiveMessage`, `sqs:DeleteMessage`, `sqs:GetQueueAttributes` on the queue; `bedrock:StartIngestionJob` on the Knowledge Base |
 | `query_handler` | Retrieve + generate | `bedrock:Retrieve` on the Knowledge Base; `bedrock:InvokeModel` on the chosen model |
-| EventBridge rule → SQS | Deliver upload events | SQS queue policy allows `sqs:SendMessage` only from `events.amazonaws.com` with `aws:SourceArn` = the rule ARN |
+| EventBridge rule → SQS | Deliver upload and delete events | Target IAM role: `sqs:SendMessage` on the ingestion queue only; trust limited to `events.amazonaws.com` with `aws:SourceAccount` and `aws:SourceArn` = the rule ARN |
 | Knowledge Base service role | Ingestion pipeline | `s3:GetObject`, `s3:ListBucket` on the documents bucket; `bedrock:InvokeModel` on Titan Embeddings; `s3vectors:*Vectors` on the vector index |
 
 All functions also get permissions to write their own CloudWatch Logs only.
